@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manihas | Creative Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #faf370, #faf370);
+            color: #1a1a2e;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .navbar {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .navbar ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .navbar a {
+            color: #faf370;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #6b7280;
+            transition: all 0.4s ease;
+        }
+
+        .navbar a:hover::before {
+            width: 60%;
+            left: 20%;
+        }
+
+        .navbar a:hover {
+            color: #6b7280;
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 8rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #home {
+            background: linear-gradient(135deg, #5770ff, #6b7280);
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 85%, 0 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.4);
+            animation: fadeInDown 1.5s ease-out;
+            text-align: center; /* Ensure h1 is centered */
+        }
+
+        .typing-text {
+            border-right: 4px solid #e0e7ff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blinkCursor 0.7s infinite;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { border-color: #e0e7ff; }
+            50% { border-color: transparent; }
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            position: relative;
+            color: #16213e;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: #6b7280;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 3rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.5s ease;
+            background: #fff;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            background: linear-gradient(to top, rgba(22,33,62,0.9), transparent);
+            padding: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #e0e7ff;
+        }
+
+        .about-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
+            margin-bottom: 2.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .about-img:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .education-item {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .skills-list li {
+            background: linear-gradient(45deg, #e5e7eb, #fff);
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .skills-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        input, textarea {
+            background: #f3f4f6;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            padding: 1.2rem;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #6b7280;
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(107,114,128,0.3);
+        }
+
+        button {
+            background: linear-gradient(45deg, #16213e, #6b7280);
+            box-shadow: 0 5px 15px rgba(107,114,128,0.4);
+            padding: 1.2rem 3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #e0e7ff;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(107,114,128,0.6);
+        }
+
+        footer {
+            padding: 2rem;
+            background: #16213e;
+            color: #e0e7ff;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .social-links a {
+            color: #e0e7ff;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #6b7280;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .navbar a { padding: 0.6rem 1rem; font-size: 1rem; }
+            .gallery-item { height: 200px; }
+            .about-img { width: 200px; height: 200px; }
+            input, textarea { width: 100%; }
+            .skills-list { grid-template-columns: 1fr; }
+            #home { clip-path: polygon(0 0, 100% 0, 100% 45%, 50% 80%, 0 45%); }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="container">
+            <h1 id="typing" class="typing-text"></h1>
+            <p style="font-size: 1.3rem; max-width: 700px; text-align: center;">Exploring the intersection of creativity and technology through innovative projects.</p>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="gallery" id="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x250?text=Project+1" alt="Project 1">
+                    <div class="gallery-caption">Project 1</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x250?text=Project+2" alt="Project 2">
+                    <div class="gallery-caption">Project 2</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x250?text=Project+3" alt="Project 3">
+                    <div class="gallery-caption">Project 3</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <img src="D:\stylish-portfolio\IMG_20241128_124720507_HDR_PORTRAIT(1).JPG" alt="Your Photo" class="about-img">
+            <p style="font-size: 1.2rem; max-width: 800px;">I'm Manihas, a passionate developer and designer crafting unique digital experiences. I thrive on turning ideas into reality with clean code and creative design.</p>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="education">
+                <div class="education-item">
+                    <h4>Bachelor of Science in Computer Science</h4>
+                    <p>University Name • 2018-2022</p>
+                    <p>Graduated with Honors, GPA: 3.8/4.0</p>
+                </div>
+                <div class="education-item">
+                    <h4>High School Diploma</h4>
+                    <p>School Name • 2014-2018</p>
+                    <p>Valedictorian, GPA: 4.0/4.0</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li>HTML5 & CSS3</li>
+                <li>JavaScript</li>
+                <li>React.js</li>
+                <li>Node.js</li>
+                <li>Python</li>
+                <li>UI/UX Design</li>
+                <li>Git & GitHub</li>
+                <li>SQL Databases</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <form class="contact-form" action="https://script.google.com/macros/s/AKfycbwqrVt5cQmVFi3fzrE3RT3-t0vmDmWeCK2bJE1opf961YrxkT4qrwN3_2ce7cHMZVJ-/exec" method="post" id="myForm">
+                <div class="form-group">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Your Message" name="Message" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="www.linkedin.com/in/manihas-avunoori-bb497a31a" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>© 2025 Manihas. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#6b7280' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#6b7280', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: true }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+                modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        const text = "Hi, I'm Manihas - Welcome to My World";
+        const typingElement = document.getElementById('typing');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typingElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            } else {
+                setTimeout(() => {
+                    typingElement.innerHTML = '';
+                    i = 0;
+                    typeWriter();
+                }, 3000);
+            }
+        }
+
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent successfully!');
+            this.reset();
+        });
+
+        function addGalleryItem(src, caption) {
+            const gallery = document.getElementById('gallery-container');
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.innerHTML = `
+                <img src="${src}" alt="${caption}">
+                <div class="gallery-caption">${caption}</div>
+            `;
+            gallery.appendChild(item);
+        }
+
+        window.onload = function() {
+            typeWriter();
+        };
+    </script>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwqrVt5cQmVFi3fzrE3RT3-t0vmDmWeCK2bJE1opf961YrxkT4qrwN3_2ce7cHMZVJ-/exec'
+
+const form = document.forms['contact-form']
+
+form.addEventListener('submit', e => {
+  
+  e.preventDefault()
+  
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+  .then(response => alert("Thank you! Form is submitted" ))
+  .then(() => { window.location.reload(); })
+  .catch(error => console.error('Error!', error.message))
+})
+</script>
+</body>
+</html>
